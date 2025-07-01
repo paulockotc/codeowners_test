@@ -1,4 +1,4 @@
-name: "Codeowners Approval Workflow"
+name: "Codeowners Multi-Approval Workflow"
 on:
   pull_request_review:
     types: [submitted]
