@@ -1,0 +1,32 @@
+name: "Codeowners Approval Workflow"
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  codeowners-approval:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate GitHub App Token
+        uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+      
+      - name: Codeowners Multi-Approval Check (Main)
+        if: github.event.pull_request.base.ref == 'main'
+        uses: noamelf/codeowner-multi-approval-action@v0.1
+        with:
+          pr-number: ${{ github.event.pull_request.number }}
+          repo-name: ${{ github.repository }}
+          github-token: ${{ steps.app-token.outputs.token }}
+      
+      - name: Codeowners Multi-Approval Check (Homolog)
+        if: github.event.pull_request.base.ref == 'homolog'
+        uses: noamelf/codeowner-multi-approval-action@v0.1
+        with:
+          pr-number: ${{ github.event.pull_request.number }}
+          repo-name: ${{ github.repository }}
+          github-token: ${{ steps.app-token.outputs.token }}
