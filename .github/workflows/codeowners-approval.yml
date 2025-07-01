@@ -1,5 +1,4 @@
 name: "Codeowners Approval Workflow"
-
 on:
   pull_request_review:
     types: [submitted]
@@ -8,9 +7,9 @@ jobs:
   codeowners-approval:
     runs-on: ubuntu-latest
     steps:
-      - name: Check Codeowners Approval
-        uses: noamelf/codeowner-multi-approval-action@main
+      - name: Codeowners Multi-Approval Check
+        uses: noamelf/codeowner-multi-approval-action@v0.1
         with:
           pr-number: ${{ github.event.pull_request.number }}
           repo-name: ${{ github.repository }}
-          github-token: ${{ secrets.MY_GITHUB_TOKEN }}
+          github-token: ${{ secrets.MULTI_APPROVAL_GH_TOKEN }}
