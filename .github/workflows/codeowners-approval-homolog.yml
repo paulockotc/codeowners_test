@@ -4,7 +4,7 @@ on:
     types: [submitted]
 
 jobs:
-  codeowners-approval:
+  codeowners-approval-homolog:
     runs-on: ubuntu-latest
     steps:
       - name: Codeowners Multi-Approval Check (Homolog)
